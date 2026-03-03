@@ -24,6 +24,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private bool _isSlidingDown;
     [SerializeField] private bool _isJumping;
 
+    private Coroutine _slideCoroutine;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -63,7 +64,10 @@ public class PlayerMovementController : MonoBehaviour
         {
             if (_isSliding)
             {
-                return;
+                // Stop sliding if already sliding (Arret du slide si slide en cours)
+                StopCoroutine(_slideCoroutine);
+                _isSliding = false;
+                //return; // empeche les teleportation lors des mouvements slide
             }
 
             if (_currentLaneIndex == 0)
@@ -72,7 +76,7 @@ public class PlayerMovementController : MonoBehaviour
             }
 
             _currentLaneIndex--;
-            StartCoroutine(SlideCoroutine(_slideTarget[_currentLaneIndex]));
+            _slideCoroutine = StartCoroutine(SlideCoroutine(_slideTarget[_currentLaneIndex]));
         }
 
         // Slide right (droite)
@@ -80,7 +84,10 @@ public class PlayerMovementController : MonoBehaviour
         {
             if (_isSliding)
             {
-                return;
+                // Stop sliding if already sliding (Arret du slide si slide en cours)
+                StopCoroutine(_slideCoroutine);
+                _isSliding = false;
+                //return; // empeche les teleportation lors des mouvements slide
             }
 
             if (_currentLaneIndex == _slideTarget.Length - 1)
@@ -89,7 +96,7 @@ public class PlayerMovementController : MonoBehaviour
             }
 
             _currentLaneIndex++;
-            StartCoroutine(SlideCoroutine(_slideTarget[_currentLaneIndex]));
+            _slideCoroutine = StartCoroutine(SlideCoroutine(_slideTarget[_currentLaneIndex]));
         }
     }
 
