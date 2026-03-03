@@ -13,6 +13,7 @@ public class PlayerMovementController : MonoBehaviour
     [Header("Slide Parameters")]
     [SerializeField] private float _slideDuration = 1f;
     [SerializeField] private Transform[] _slideTarget;
+    [SerializeField] private float _slideDownDuration = 1f;
 
     [Header("Components")]
     [SerializeField] private Animator _animator;
@@ -20,7 +21,9 @@ public class PlayerMovementController : MonoBehaviour
     [Header("Debugs")]
     [SerializeField] private int _currentLaneIndex = 1;
     [SerializeField] private bool _isSliding;
+    [SerializeField] private bool _isSlidingDown;
     [SerializeField] private bool _isJumping;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,32 +34,47 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleJump();
+
+        HandleSlide();
+
+        HandleSlideDown();
+      
+    }
+
+    private void HandleJump()
+    {
         // Jump (saut)
         if (Keyboard.current.upArrowKey.wasPressedThisFrame)
         {
-            if(_isJumping)
+            if (_isJumping || _isSlidingDown)
             {
                 return;
             }
 
             StartCoroutine(JumpCoroutine());
         }
+    }
+
+    private void HandleSlide()
+    {
         // Slide left (gauche)
         if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
         {
-            if(_isSliding)
+            if (_isSliding)
             {
                 return;
             }
 
-            if(_currentLaneIndex == 0)
+            if (_currentLaneIndex == 0)
             {
                 return;
             }
 
-            _currentLaneIndex --;
+            _currentLaneIndex--;
             StartCoroutine(SlideCoroutine(_slideTarget[_currentLaneIndex]));
         }
+
         // Slide right (droite)
         if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
         {
@@ -72,6 +90,20 @@ public class PlayerMovementController : MonoBehaviour
 
             _currentLaneIndex++;
             StartCoroutine(SlideCoroutine(_slideTarget[_currentLaneIndex]));
+        }
+    }
+
+    private void HandleSlideDown()
+    {
+        // Slide down
+        if (Keyboard.current.downArrowKey.wasPressedThisFrame)
+        {
+            if (_isSlidingDown || _isJumping)
+            {
+                return;
+            }
+
+            StartCoroutine(SlideDownCorotuine());
         }
     }
 
@@ -137,4 +169,21 @@ public class PlayerMovementController : MonoBehaviour
 
         _isSliding = false;
     }
+
+    private IEnumerator SlideDownCorotuine()
+    {
+        _isSlidingDown = true;
+        _animator.SetBool("IsSlidingDown", true);
+        var slideTimer = 0f;
+        while (slideTimer <= _slideDuration)
+        {
+            slideTimer += Time.deltaTime;
+            yield return null;
+        }
+
+        _isSlidingDown = false;
+        _animator.SetBool("IsSlidingDown", false);
+
+    }
+
 }
