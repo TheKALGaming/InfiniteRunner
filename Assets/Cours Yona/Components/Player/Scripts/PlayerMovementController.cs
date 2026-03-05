@@ -17,6 +17,7 @@ public class PlayerMovementController : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private Animator _animator;
+    [SerializeField] private PlayerCollisionController _playerCollisionController;
 
     [Header("Debugs")]
     [SerializeField] private int _currentLaneIndex = 1;
@@ -181,6 +182,8 @@ public class PlayerMovementController : MonoBehaviour
     {
         _isSlidingDown = true;
         _animator.SetBool("IsSlidingDown", true);
+        EventSystem.OnPlayerSlideDown?.Invoke(true);
+
         var slideTimer = 0f;
         while (slideTimer <= _slideDuration)
         {
@@ -190,6 +193,7 @@ public class PlayerMovementController : MonoBehaviour
 
         _isSlidingDown = false;
         _animator.SetBool("IsSlidingDown", false);
+        EventSystem.OnPlayerSlideDown?.Invoke(false);
 
     }
 
