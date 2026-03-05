@@ -153,6 +153,8 @@ MonoBehaviour:
   _behindChunkCount: 1
   _chunksPool:
   - {fileID: 1476617981267722256, guid: e9b29e203b93c5947a4dbc7de0651c7b, type: 3}
+  - {fileID: 1476617981267722256, guid: 7c03b1a12af401e4383d6fbb32153045, type: 3}
+  - {fileID: 1476617981267722256, guid: 8341c616dfc2afe468baf6a9155a7abd, type: 3}
 --- !u!4 &624845791
 Transform:
   m_ObjectHideFlags: 0
