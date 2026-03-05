@@ -44,7 +44,7 @@ public class ObstacleController : MonoBehaviour
         }
 
         // Delete potential chunks behind player.
-        if (behindChunks.Count > _activeChunksCount)
+        if (behindChunks.Count > _behindChunkCount)
         {
             int chunkToDeleteCount = behindChunks.Count - _behindChunkCount;
 
