@@ -14,7 +14,7 @@ public class PlayerCollisionController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        EventSystem.EventSystem.OnPlayerSlideDown += ShrinkCollider;
+        EventSystem.OnPlayerSlideDown += ShrinkCollider;
     }
 
     // Update is called once per frame
