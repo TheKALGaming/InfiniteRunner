@@ -48,6 +48,8 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (playerLife > 0)
         {
+            _animator.SetTrigger("TakeDamage");
+
             return;
         }
 
