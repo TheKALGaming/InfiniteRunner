@@ -38,6 +38,7 @@ public class PlayerCollisionController : MonoBehaviour
         if (hitColliders.Length > 0 && !_isHit)
         {
             Debug.Log("Player hit something");
+            EventSystem.OnPlayerCollision?.Invoke();
             _isHit = true;
         }
 
