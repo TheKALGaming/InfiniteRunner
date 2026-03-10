@@ -24,6 +24,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private bool _isSliding;
     [SerializeField] private bool _isSlidingDown;
     [SerializeField] private bool _isJumping;
+    [SerializeField] private bool _isDead;
 
     private Coroutine _slideCoroutine;
 
@@ -35,18 +36,37 @@ public class PlayerMovementController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        EventSystem.OnPlayerLifeUpdate += HandlePlayerLifeUpdate;
+    }
+
+    private void OnDestroy()
+    {
+        EventSystem.OnPlayerLifeUpdate -= HandlePlayerLifeUpdate;
+    }
+
+    private void HandlePlayerLifeUpdate(int playerLife)
+    {
+        if (playerLife > 0)
+        {
+            return;
+        }
+
+        StopAllCoroutines();
+        _animator.SetTrigger("Dead");
+        _isDead = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_isDead)
+        {
+            return;
+        }
+
         HandleJump();
-
         HandleSlide();
-
         HandleSlideDown();
-      
     }
 
     private void HandleJump()

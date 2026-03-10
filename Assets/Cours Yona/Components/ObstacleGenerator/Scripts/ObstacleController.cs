@@ -17,7 +17,24 @@ public class ObstacleController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        EventSystem.OnPlayerLifeUpdate += HandlePlayerLifeUpdate;
         AddBaseChunk();
+    }
+
+    private void OnDestroy()
+    {
+        EventSystem.OnPlayerLifeUpdate -= HandlePlayerLifeUpdate;
+
+    }
+
+    private void HandlePlayerLifeUpdate(int playerLifeCount)
+    {
+        if(playerLifeCount > 0)
+        {
+            return;
+        }
+
+        _translationSpeed = 0f;
     }
 
     // Update is called once per frame
