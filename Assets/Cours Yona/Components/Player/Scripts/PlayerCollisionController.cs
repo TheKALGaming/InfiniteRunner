@@ -10,16 +10,18 @@ public class PlayerCollisionController : MonoBehaviour
     [SerializeField] private float _shrinkSphereRadius;
 
     private bool _isHit;
+
     private Vector3 _currentSphereCenter;
     private float _currentSphereRadius;
 
-    private Vector3 _playerSpherePosition => transform.position + _currentSphereCenter;
+    private Vector3 PlayerSpherePosition => transform.position + _currentSphereCenter;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _currentSphereCenter = _shrinkSphereCenter;
         _currentSphereRadius = _sphereRadius;
+
         // On abonne à un event
         EventSystem.OnPlayerSlideDown += ShrinkCollider;
     }
@@ -33,7 +35,7 @@ public class PlayerCollisionController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(_playerSpherePosition, _currentSphereRadius);
+        Collider[] hitColliders = Physics.OverlapSphere(PlayerSpherePosition, _currentSphereRadius);
 
         if (hitColliders.Length > 0 && !_isHit)
         {
@@ -72,6 +74,6 @@ public class PlayerCollisionController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position + _shrinkSphereCenter, _shrinkSphereRadius);
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(_playerSpherePosition, _currentSphereRadius);
+        Gizmos.DrawWireSphere(PlayerSpherePosition, _currentSphereRadius);
     }
 }

@@ -22,24 +22,17 @@ public class ObstacleController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        EventSystem.OnPlayerLifeUpdate += HandlePlayerLifeUpdate;
+        _baseTranslationSpeed = _translationSpeed;
+
+        EventSystem.OnPlayerLifeUpdated += HandlePlayerLifeUpdate;
         AddBaseChunk();
     }
 
     private void OnDestroy()
     {
-        EventSystem.OnPlayerLifeUpdate -= HandlePlayerLifeUpdate;
+        EventSystem.OnPlayerLifeUpdated -= HandlePlayerLifeUpdate;
     }
 
-    private void HandlePlayerLifeUpdate(int playerLifeCount)
-    {
-        if(playerLifeCount > 0)
-        {
-            _stopped = true;
-        }
-
-        _translationSpeed = 0f;
-    }
 
     // Update is called once per frame
     void Update()
@@ -143,4 +136,13 @@ public class ObstacleController : MonoBehaviour
         return _instancedChunks[_instancedChunks.Count - 1];
     }
 
+    private void HandlePlayerLifeUpdate(int playerLifeCount)
+    {
+        if(playerLifeCount > 0)
+        {
+            _stopped = true;
+        }
+
+        _translationSpeed = 0;
+    }
 }

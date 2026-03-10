@@ -12,7 +12,7 @@ public class LifeController : MonoBehaviour
     {
         _currentLifeCount = _lifeCount;
 
-        EventSystem.OnPlayerLifeUpdate?.Invoke(_currentLifeCount);
+        EventSystem.OnPlayerLifeUpdated?.Invoke(_currentLifeCount);
         EventSystem.OnPlayerCollision += HandlePlayerCollision;
     }
 
@@ -23,13 +23,13 @@ public class LifeController : MonoBehaviour
 
     private void HandlePlayerCollision()
     {
-        if (_currentLifeCount -1 <= 0)
+        if (_currentLifeCount -1 < 0)
         {
             // The player is dead
             return;
         }
 
         _currentLifeCount--;
-        EventSystem.OnPlayerLifeUpdate?.Invoke(_currentLifeCount);
+        EventSystem.OnPlayerLifeUpdated?.Invoke(_currentLifeCount);
     }
 }

@@ -8,12 +8,12 @@ public class UILifeView : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        EventSystem.OnPlayerLifeUpdate += HandlePlayerLifeUpdated;
+        EventSystem.OnPlayerLifeUpdated += HandlePlayerLifeUpdated;
     }
 
     private void OnDestroy()
     {
-        EventSystem.OnPlayerLifeUpdate -= HandlePlayerLifeUpdated;
+        EventSystem.OnPlayerLifeUpdated -= HandlePlayerLifeUpdated;
     }
 
     private void HandlePlayerLifeUpdated(int newLifeCount)

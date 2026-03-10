@@ -13,11 +13,10 @@ public class PlayerMovementController : MonoBehaviour
     [Header("Slide Parameters")]
     [SerializeField] private float _slideDuration = 1f;
     [SerializeField] private Transform[] _slideTarget;
-    [SerializeField] private float _slideDownDuration = 1f;
+    [SerializeField] private float _slideDownDuration = 1.5f;
 
     [Header("Components")]
     [SerializeField] private Animator _animator;
-    [SerializeField] private PlayerCollisionController _playerCollisionController;
 
     [Header("Debugs")]
     [SerializeField] private int _currentLaneIndex = 1;
@@ -28,23 +27,23 @@ public class PlayerMovementController : MonoBehaviour
 
     private Coroutine _slideCoroutine;
 
-    private void Awake()
-    {
-        EventSystem.OnPlayerSlideDown?.Invoke(false);
-    }
+    //private void Awake()
+    //{
+    //    EventSystem.OnPlayerSlideDown?.Invoke(false);
+    //}
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        EventSystem.OnPlayerLifeUpdate += HandlePlayerLifeUpdate;
+        EventSystem.OnPlayerLifeUpdated += HandlePlayerLifeUpdated;
     }
 
     private void OnDestroy()
     {
-        EventSystem.OnPlayerLifeUpdate -= HandlePlayerLifeUpdate;
+        EventSystem.OnPlayerLifeUpdated -= HandlePlayerLifeUpdated;
     }
 
-    private void HandlePlayerLifeUpdate(int playerLife)
+    private void HandlePlayerLifeUpdated(int playerLife)
     {
         if (playerLife > 0)
         {
