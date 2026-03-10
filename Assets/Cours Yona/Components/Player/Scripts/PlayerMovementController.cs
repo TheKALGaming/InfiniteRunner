@@ -27,6 +27,11 @@ public class PlayerMovementController : MonoBehaviour
 
     private Coroutine _slideCoroutine;
 
+    private void Awake()
+    {
+        EventSystem.OnPlayerSlideDown?.Invoke(false);
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

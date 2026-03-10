@@ -290,7 +290,8 @@ MonoBehaviour:
   - {fileID: 7792295275578931414}
   - {fileID: 7609203679257020163}
   _slideDownDuration: 1
-  _animator: {fileID: 0}
+  _animator: {fileID: 8578907181995005360}
+  _playerCollisionController: {fileID: 0}
   _currentLaneIndex: 1
   _isSliding: 0
   _isSlidingDown: 0
@@ -308,7 +309,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCollisionController
   _sphereCenter: {x: 0, y: 0.33, z: 0}
-  _sphereRadius: 0.5
+  _sphereRadius: 0.33
+  _shrinkSphereCenter: {x: 0, y: 0.22, z: 0}
+  _shrinkSphereRadius: 0.22
 --- !u!95 &8578907181995005360
 Animator:
   serializedVersion: 7
