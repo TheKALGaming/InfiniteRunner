@@ -12,12 +12,12 @@ public class UICountdownController : MonoBehaviour
     private void Awake()
     {
         _window.SetActive(false);
-        EventSystem.OnStateChange += HandleStateChanged;
+        EventSystem.OnStateChanged += HandleStateChanged;
     }
 
     private void OnDestroy()
     {
-        EventSystem.OnStateChange -= HandleStateChanged;
+        EventSystem.OnStateChanged -= HandleStateChanged;
     }
 
     private void HandleStateChanged(State state)

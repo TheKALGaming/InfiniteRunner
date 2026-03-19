@@ -12,7 +12,7 @@ public class StateMachine
         CurrentState = newState;
         CurrentState.Enter();
 
-        EventSystem.OnStateChange?.Invoke(CurrentState);
+        EventSystem.OnStateChanged?.Invoke(CurrentState);
     }
 
     public void Update()

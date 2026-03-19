@@ -19,20 +19,25 @@ public class ObstacleController : MonoBehaviour
     private float _stopDelayTimer;
     private bool _stopped;
 
+    private void Awake()
+    {
+        EventSystem.OnStateChanged += HandleStateChanged;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _baseTranslationSpeed = _translationSpeed;
+        _translationSpeed = 0f;
 
-        EventSystem.OnPlayerLifeUpdated += HandlePlayerLifeUpdate;
         AddBaseChunk();
     }
 
     private void OnDestroy()
     {
         EventSystem.OnPlayerLifeUpdated -= HandlePlayerLifeUpdate;
+        EventSystem.OnStateChanged -= HandleStateChanged;
     }
-
 
     // Update is called once per frame
     void Update()
@@ -144,5 +149,18 @@ public class ObstacleController : MonoBehaviour
         }
 
         _translationSpeed = 0;
+    }
+
+    private void HandleStateChanged(State newState)
+    {
+        if (newState is not GameState)
+        {
+            EventSystem.OnPlayerLifeUpdated -= HandlePlayerLifeUpdate;
+            return;
+        }
+
+        _translationSpeed = _baseTranslationSpeed;
+        EventSystem.OnPlayerLifeUpdated += HandlePlayerLifeUpdate;
+
     }
 }
