@@ -50,7 +50,6 @@ public class PlayerMovementController : MonoBehaviour
             return;
         }
 
-        StopAllCoroutines();
         _animator.SetTrigger("Dead");
         _locked = true;
     }
@@ -60,6 +59,7 @@ public class PlayerMovementController : MonoBehaviour
         if (newState is not GameState)
         {
             _locked = true;
+            StopAllCoroutines();
             EventSystem.OnPlayerLifeUpdated += HandlePlayerLifeUpdated;
 
             return;

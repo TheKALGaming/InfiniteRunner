@@ -8,6 +8,7 @@ public class GameState : State
     {
 
         Debug.Log("Game started");
+        EventSystem.OnPlayerLifeUpdated += HandlePlayerLifeUpdated;
 
     }
 
@@ -20,6 +21,18 @@ public class GameState : State
     public override void Exit()
     {
         Debug.Log("Game exit");
+        EventSystem.OnPlayerLifeUpdated -= HandlePlayerLifeUpdated;
 
+    }
+
+    private void HandlePlayerLifeUpdated(int playerLife)
+    {
+        if (playerLife > 0)
+        {
+            return;
+        }
+
+        var gameOverState = new GameOverState(StateMachine);
+        StateMachine.ChangeState(gameOverState);
     }
 }
