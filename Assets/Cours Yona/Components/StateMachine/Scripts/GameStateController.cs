@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class StateMachineController : MonoBehaviour
+public class GameStateController : MonoBehaviour
 {
     private StateMachine _stateMachine;
 
