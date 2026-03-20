@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4178714202e4b3b40bf75e2fe03b1879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementController
-  _jumpDuration: 1
+  _jumpDuration: 0.5
   _jumpHeight: 1
   _jumpCurve:
     serializedVersion: 2
@@ -289,13 +289,13 @@ MonoBehaviour:
   - {fileID: 2428025256800623212}
   - {fileID: 7792295275578931414}
   - {fileID: 7609203679257020163}
-  _slideDownDuration: 1
+  _slideDownDuration: 0.5
   _animator: {fileID: 8578907181995005360}
-  _playerCollisionController: {fileID: 0}
   _currentLaneIndex: 1
   _isSliding: 0
   _isSlidingDown: 0
   _isJumping: 0
+  _locked: 0
 --- !u!114 &758806567964541678
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25,6 +25,14 @@ public class GameState : State
 
     public override void Exit()
     {
+        var saveData = SaveService.Load();
+        if (saveData.BestTime < Timer)
+        {
+            saveData.BestTime = Timer;
+            SaveService.Save(saveData);
+        }
+
+
         EventSystem.OnPlayerLifeUpdated -= HandlePlayerLifeUpdated;
 
     }
