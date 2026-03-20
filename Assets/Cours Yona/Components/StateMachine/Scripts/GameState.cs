@@ -1,26 +1,30 @@
+using System.Threading;
 using UnityEngine;
 
 public class GameState : State
 {
     public GameState(StateMachine stateMachine) : base(stateMachine) { }
 
+    // The timer since th game started in seconds.
+    public int Timer => Mathf.RoundToInt(_timer);
+
+    private float _timer;
+
     public override void Enter()
     {
-
-        Debug.Log("Game started");
         EventSystem.OnPlayerLifeUpdated += HandlePlayerLifeUpdated;
-
+        
+        _timer = 0;
     }
 
     public override void Update()
     {
-        Debug.Log("Game updated");
+        _timer += Time.deltaTime;
 
     }
 
     public override void Exit()
     {
-        Debug.Log("Game exit");
         EventSystem.OnPlayerLifeUpdated -= HandlePlayerLifeUpdated;
 
     }
